@@ -1,0 +1,6 @@
+framework module Pods_bambookUITests {
+  umbrella header "Pods-bambookUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
