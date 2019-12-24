@@ -17,6 +17,7 @@ class StockCollectionViewCell: UICollectionViewCell {
         view.text = "stock title"
         view.font = UIFont.robotoBold13()
         view.textColor = UIColor(red: 0.8, green: 0.56, blue: 0.08, alpha: 1.0)
+        view.adjustsFontSizeToFitWidth = true
        return view
     }()
     
@@ -32,6 +33,7 @@ class StockCollectionViewCell: UICollectionViewCell {
     var stockDiscountTitle:UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.adjustsFontSizeToFitWidth = true
         view.text = "stock discount"
         view.textColor = UIColor.white
         view.font = UIFont.robotoBold13()
@@ -42,6 +44,7 @@ class StockCollectionViewCell: UICollectionViewCell {
     var stockLimit:UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.adjustsFontSizeToFitWidth = true
         view.text = "stock limit"
         view.textAlignment = .center
         view.textColor = UIColor(red: 0.36, green: 0.47, blue: 0.6, alpha: 1.0)

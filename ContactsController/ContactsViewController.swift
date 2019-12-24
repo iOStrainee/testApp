@@ -22,9 +22,11 @@ class ContactsViewController: UIViewController {
     var titleLabel:UILabel = {
         let view = UILabel()
         view.text = "Контакты"
+        view.adjustsFontSizeToFitWidth = true
         view.font = UIFont.appetite24()
         view.textColor = UIColor.white
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.sizeToFit()
        return view
     }()
     
@@ -33,7 +35,8 @@ class ContactsViewController: UIViewController {
         view.numberOfLines = 0
         view.text = "Контактные телефоны:\n0 312 88 00 58, 0 708 88 88 44, 0 772 88 88 44"
         view.textAlignment = .center
-        view.lineBreakMode = .byWordWrapping
+        view.adjustsFontSizeToFitWidth = true
+        view.sizeToFit()
         view.textColor = UIColor(red: 0.36, green: 0.47, blue: 0.6, alpha: 1.0)
         view.font = UIFont.robotoBold13()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +61,9 @@ class ContactsViewController: UIViewController {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.titleLabel?.textColor = UIColor.black
-        view.titleLabel?.text = "/foodbambook"
+        view.setTitle("/foodbambook", for: .normal)
+        view.titleLabel?.adjustsFontSizeToFitWidth = true
+        view.titleLabel?.sizeToFit()
         view.imageEdgeInsets = UIEdgeInsets(top: 8.0, left: 22.0, bottom: 8.0, right: 14.0)
         view.backgroundColor = UIColor(red: 0.23, green: 0.35, blue: 0.6, alpha: 1.0)
         view.layer.cornerRadius = 20.0
@@ -73,7 +78,9 @@ class ContactsViewController: UIViewController {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.titleLabel?.textColor = UIColor.black
-        view.titleLabel?.text = "@bambook_kg"
+        view.setTitle("@bambook_kg", for: .normal)
+        view.titleLabel?.adjustsFontSizeToFitWidth = true
+        view.titleLabel?.sizeToFit()
         view.backgroundColor = UIColor(red: 0.9, green: 0.49, blue: 0.9, alpha: 1.0)
         view.imageEdgeInsets = UIEdgeInsets(top: 8.0, left: 22.0, bottom: 8.0, right: 14.0)
         view.layer.cornerRadius = 20.0
@@ -96,6 +103,8 @@ class ContactsViewController: UIViewController {
     var labelStack1:UILabel = {
         let view = UILabel()
         view.text = "Бесплатная доставка при заказе от 400 сом"
+        view.adjustsFontSizeToFitWidth = true
+        view.sizeToFit()
         view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         view.textColor = UIColor.init(red: 0.8, green: 0.56, blue: 0.08, alpha: 1.0)
@@ -106,6 +115,8 @@ class ContactsViewController: UIViewController {
         let view = UILabel()
         view.textAlignment = .center
         view.text = ""
+        view.adjustsFontSizeToFitWidth = true
+        view.sizeToFit()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.textColor = UIColor.init(red: 0.36, green: 0.47, blue: 0.6, alpha: 1.0)
        return view

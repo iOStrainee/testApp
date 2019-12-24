@@ -23,6 +23,7 @@ class DishesFromCategoryCollectionViewCell: UICollectionViewCell {
     var nameOfDishes:UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.adjustsFontSizeToFitWidth = true
         view.numberOfLines = 0
         view.text = "test text text text test test test test"
         view.textColor = UIColor(red: 0.36, green: 0.47, blue: 0.6, alpha: 1.0)
@@ -35,6 +36,7 @@ class DishesFromCategoryCollectionViewCell: UICollectionViewCell {
     var priceLabel:UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.adjustsFontSizeToFitWidth = true
         view.text = " сом"
         view.textColor = UIColor(red: 0.8, green: 0.56, blue: 0.08, alpha: 1.0)
         view.textAlignment = .center
@@ -60,6 +62,7 @@ class DishesFromCategoryCollectionViewCell: UICollectionViewCell {
         view.titleLabel?.font = UIFont.roboto13()
         view.titleLabel?.textColor = UIColor.black
         view.titleLabel?.textAlignment = .center
+        view.titleLabel?.adjustsFontSizeToFitWidth = true
         view.backgroundColor = UIColor(red: 0.36, green: 0.47, blue: 0.6, alpha: 1.0)
         view.layer.cornerRadius = 20.0
         view.layer.masksToBounds = true

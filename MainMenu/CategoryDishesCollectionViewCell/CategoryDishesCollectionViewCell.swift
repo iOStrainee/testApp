@@ -29,6 +29,7 @@ class CategoryDishesCollectionViewCell: UICollectionViewCell {
         view.textAlignment = .center
         view.font = UIFont.roboto13()
         view.lineBreakMode = .byCharWrapping
+        view.adjustsFontSizeToFitWidth = true
        return view
     }()
     

@@ -29,6 +29,7 @@ class TabBarControllerMenu: UITabBarController{
         tabBar.barTintColor = UIColor(red: 0.25, green: 0.36, blue: 0.5, alpha: 1.0)
         self.configureTabBar()
         self.scrollInidcatorConfigure()
+        
     }
     
     // MARK: - scroll indicator

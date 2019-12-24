@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.text = "Профиль"
+        view.adjustsFontSizeToFitWidth = true
         view.textColor = UIColor.white
         view.font = UIFont.appetite24()
         return view
@@ -39,6 +40,7 @@ class ProfileViewController: UIViewController {
        let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.placeholderColorChange(requiredPlaceholderString: "имя")
+        view.adjustsFontSizeToFitWidth = true
         view.backgroundColor = UIColor.mainColor()
         view.layer.cornerRadius = 20.0
         view.textColor = UIColor.colorTextField()
@@ -50,6 +52,7 @@ class ProfileViewController: UIViewController {
     var phoneNumberTextField:UITextField = {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.adjustsFontSizeToFitWidth = true
         view.backgroundColor = UIColor.mainColor()
         view.placeholderColorChange(requiredPlaceholderString: "номер телефона")
         view.layer.cornerRadius = 20.0
@@ -62,6 +65,7 @@ class ProfileViewController: UIViewController {
     var streetTextField:UITextField = {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.adjustsFontSizeToFitWidth = true
         view.backgroundColor = UIColor.mainColor()
         view.layer.cornerRadius = 20.0
         view.placeholderColorChange(requiredPlaceholderString: "название улицы")
@@ -74,6 +78,7 @@ class ProfileViewController: UIViewController {
     var homeTextField:UITextField = {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.adjustsFontSizeToFitWidth = true
         view.backgroundColor = UIColor.mainColor()
         view.placeholderColorChange(requiredPlaceholderString: "номер дома")
         view.layer.cornerRadius = 20.0
@@ -86,6 +91,7 @@ class ProfileViewController: UIViewController {
     var apartmentTextField:UITextField = {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.adjustsFontSizeToFitWidth = true
         view.backgroundColor = UIColor.mainColor()
         view.placeholderColorChange(requiredPlaceholderString: "номер квартиры")
         view.layer.cornerRadius = 20.0
@@ -98,6 +104,7 @@ class ProfileViewController: UIViewController {
     var passwordTextField:UITextField = {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.adjustsFontSizeToFitWidth = true
         view.isSecureTextEntry = true
         view.backgroundColor = UIColor.mainColor()
         view.placeholderColorChange(requiredPlaceholderString: "пароль")
@@ -127,6 +134,7 @@ class ProfileViewController: UIViewController {
         view.setTitleColor(UIColor.white, for: .normal)
         view.setTitleColor(UIColor.green.withAlphaComponent(0.2), for: .highlighted)
         view.titleLabel?.textAlignment = .center
+        view.titleLabel?.adjustsFontSizeToFitWidth = true
         view.layer.cornerRadius = 20.0
         view.layer.borderWidth = 1.0
         view.layer.borderColor = UIColor.colorBorderTextField()
@@ -141,6 +149,7 @@ class ProfileViewController: UIViewController {
         view.setTitle("история заказов", for: .normal)
         view.setTitleColor(UIColor.white, for: .normal)
         view.titleLabel?.textAlignment = .center
+        view.titleLabel?.adjustsFontSizeToFitWidth = true
         view.layer.cornerRadius = 20.0
         view.layer.borderColor = UIColor.colorBorderTextField()
         view.layer.borderWidth = 1.0
@@ -165,21 +174,25 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationController?.navigationBar.barTintColor = UIColor.mainColor()
-        navigationController?.navigationItem.title = "22"
+        self.navigationController?.navigationBar.topItem?.title = "Профиль"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         
         self.navigationController?.navigationBar.addSubview(leftView)
         self.navigationController?.navigationBar.addSubview(rightView)
 
-        self.view.addSubview(self.scrollView)
-        self.scrollView.addSubview(self.scrollContentView)
-        self.scrollContentView.addSubview(self.stackOfTextField)
-        self.addToStackTextField()
+        self.allSubViews()
         
     }
     
     //MARK: - add textField types to stackOfTextField
-    private func addToStackTextField() {
+    private func allSubViews() {
+        
+        self.view.addSubview(self.scrollView)
+        self.scrollView.addSubview(self.scrollContentView)
+        self.scrollContentView.addSubview(self.stackOfTextField)
+        
         self.stackOfTextField.addArrangedSubview(nameTextField)
         self.stackOfTextField.addArrangedSubview(phoneNumberTextField)
         self.stackOfTextField.addArrangedSubview(streetTextField)
