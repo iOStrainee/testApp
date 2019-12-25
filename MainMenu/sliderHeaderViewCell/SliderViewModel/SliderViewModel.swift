@@ -10,7 +10,7 @@ import UIKit
 
 class SliderViewModel: NSObject,ResourceData {
     
-   var typeCells: TypeCell?
+   var typeCells: TypeCell = .normal
    weak var delegate: ViewModelDelegate?
     
     var sliderItems = [Slider]()

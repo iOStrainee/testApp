@@ -100,15 +100,27 @@ class DishesFromCategoryCollectionViewCell: UICollectionViewCell {
     //MARK: - constraints for all properties
     private func constraintProperties() {
         // property of nameOfDishes
-        self.nameOfDishes.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: imageObject.topAnchor, padding: .init(top: 16.0, left: 16.0, bottom: -8.0, right: -16.0), size: .zero)
+        self.nameOfDishes.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10.0).isActive = true
+        self.nameOfDishes.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10.0).isActive = true
+        self.nameOfDishes.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10.0).isActive = true
+        self.nameOfDishes.bottomAnchor.constraint(equalTo: self.imageObject.topAnchor, constant: -5.0).isActive = true
         
         // property of imageObject
-       self.imageObject.anchor(top: nameOfDishes.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: self.priceLabel.topAnchor, padding: .init(top: 8.0, left: 16.0, bottom: 5.0, right: -16.0), size: .zero)
+        self.imageObject.topAnchor.constraint(equalTo: self.nameOfDishes.bottomAnchor, constant: 5.0).isActive = true
+        self.imageObject.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5.0).isActive = true
+        self.imageObject.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5.0).isActive = true
+        self.imageObject.bottomAnchor.constraint(equalTo: self.priceLabel.topAnchor, constant: -5.0).isActive = true
         
         // property of priceLabel
-        self.priceLabel.anchor(top: imageObject.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: cartButton.topAnchor, padding: .init(top: 8.0, left: 16.0, bottom: -8.0, right: -16.0), size: .zero)
+        self.priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10.0).isActive = true
+        self.priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10.0).isActive = true
+        self.priceLabel.bottomAnchor.constraint(equalTo: self.cartButton.topAnchor, constant: -5.0).isActive = true
         
         //property of cartButton
-        self.cartButton.anchor(top: nil, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, padding: .init(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0), size: .init(width: contentView.bounds.width, height: 40.0))
+        self.cartButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0.0).isActive = true
+        self.cartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0.0).isActive = true
+        self.cartButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0.0).isActive = true
+        self.cartButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1.0).isActive = true
+        self.cartButton.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
     }
 }

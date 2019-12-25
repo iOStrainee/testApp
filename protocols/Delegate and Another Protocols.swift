@@ -13,6 +13,7 @@ enum TypeCell {
     case freeGarnish
     case isNew
     case himeraFreeIsNew
+    case normal
 }
 
 enum typeStocks {
@@ -36,7 +37,6 @@ extension ViewModelDelegate {
 protocol ResourceData:class {
     var countRow:Int{get}
     var delegate:ViewModelDelegate? {get set}
-    var typeCells:TypeCell?{get set}
 }
 
 extension ResourceData {

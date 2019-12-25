@@ -58,6 +58,7 @@ class Api: NSObject {
         Alamofire.request(urlEncoded, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseObject { (response:DataResponse<DishesFromCategory>) in
             switch response.result {
             case .success(let value):
+                
                 callback(value,true)
             case .failure(_):
                 callback(nil,false)
@@ -117,3 +118,14 @@ class Api: NSObject {
         }
     }
 }
+
+
+
+//public func getSearchDishes(_ categoryId: Int, search: String, success: @escaping(_ items: [Dish]?, String?) -> Void) {
+//    var url = String(format: "\(BASE_URL)/api/v1/dishes/?search=\(search.lowercased())")
+//
+//    if categoryId == 0{
+//        url = String(format: "\(BASE_URL)/api/v1/dishes/?search=\(search.lowercased())")
+//    }else{
+//        url = String(format: "\(BASE_URL)/api/v1/dishes/?category=\(categoryId)&search=\(search.lowercased())")
+//}

@@ -11,8 +11,6 @@ import UIKit
 class DishesCategoryViewModel: NSObject , ResourceData{
    weak var delegate: ViewModelDelegate?
     
-    var typeCells: TypeCell?
-    
     var items:DishesFromCategory?
     
     var countRow: Int {
@@ -25,7 +23,8 @@ class DishesCategoryViewModel: NSObject , ResourceData{
         super.init()
         self.preloadData(id: idCategory) {[weak object = self] (temp) in
             if temp {
-                object?.delegate?.didLoadAnimation()
+                
+                object?.settingTypeCell()
             } else {
                 object?.delegate?.hasError()
             }
@@ -48,5 +47,27 @@ class DishesCategoryViewModel: NSObject , ResourceData{
                 completionHandler(false)
             }
         }
+    }
+    
+    //MARK: - setting typecell
+    private func settingTypeCell() {
+        if let temp = self.items?.dishes {
+            
+            self.items?.dishes = temp.map {
+                var t = $0
+                if $0.with_garnish {
+                    t.typeCell = .freeGarnish
+                }
+                if $0.isNew {
+                    t.typeCell = .isNew
+                }
+                
+                if $0.with_garnish && $0.isNew {
+                    t.typeCell = .himeraFreeIsNew
+                }
+                return t
+            }
+        }
+        delegate?.didLoadAnimation()
     }
 }

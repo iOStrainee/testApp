@@ -10,6 +10,7 @@ import Foundation
 import ObjectMapper
 
 struct Dishes:Mappable{
+    var typeCell:TypeCell = .normal
     var id:Int?
     var name:String?
     var slug:String?
@@ -17,13 +18,9 @@ struct Dishes:Mappable{
     var output:String?
     var price:String?
     var description:String?
-    var with_garnish:Bool?
+    var with_garnish:Bool = false
     var with_additive:Bool?
-    var isNew:Bool?{
-        willSet{
-            print("will set dishes")
-        }
-    }
+    var isNew:Bool = false
     var category:Int?
     var garnishes:[Garnishes]?
     var additivies:[Additivies]?

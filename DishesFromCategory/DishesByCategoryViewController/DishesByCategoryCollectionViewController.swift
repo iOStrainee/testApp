@@ -83,6 +83,7 @@ class DishesByCategoryCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? DishesFromCategoryCollectionViewCell else {return}
         print(cell.nameOfDishes.text)
+        print(cell.itemData?.typeCell)
     }
 
     // MARK: UICollectionViewDelegate

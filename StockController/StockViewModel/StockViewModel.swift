@@ -11,7 +11,6 @@ import UIKit
 class StockViewModel: NSObject,ResourceData {
     
     weak var delegate: ViewModelDelegate?
-    var typeCells: TypeCell?
     var item:[Stocks] = [Stocks]()
     
     var countRow: Int {

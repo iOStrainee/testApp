@@ -10,7 +10,6 @@ import UIKit
 
 class ContactsViewModel: NSObject,ResourceData {
     
-    var typeCells: TypeCell?
     var contacts:Contacts?
     weak var delegate:ViewModelDelegate?
     

@@ -9,7 +9,6 @@
 import UIKit
 
 class MainCategoryMenuViewModel: NSObject ,ResourceData{
-    var typeCells: TypeCell?
     
     weak var delegate: ViewModelDelegate?
     var dataItems = [CategoryDishes]()
