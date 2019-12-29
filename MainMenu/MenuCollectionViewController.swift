@@ -37,6 +37,8 @@ class MenuCollectionViewController: UICollectionViewController {
         self.collectionView?.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifierHeader)
         self.collectionView.backgroundColor = UIColor.black
         self.navigationController?.delegate = self
+        self.navigationItem.title = "Меню"
+        self.navigationController?.navigationBar.backItem?.title = "назад"
         
         //MARK:- get height tabbar + padding 16.0 point
         guard let height = self.tabBarController?.tabBar.bounds.height else {
@@ -45,8 +47,6 @@ class MenuCollectionViewController: UICollectionViewController {
         }
         self.tabBarHeightPadding = height + 16.0
         self.categoryViewModel = MainCategoryMenuViewModel(delegate: self)
-        
-        self.tabBarItem.title = "64548"
     }
     
     // MARK: UICollectionViewDataSource
@@ -102,6 +102,7 @@ class MenuCollectionViewController: UICollectionViewController {
         self.imageFrameCustom = CGRect(x: selectFrame.minX, y: selectFrame.minY, width: item.imageObject.frame.size.width, height: item.imageObject.frame.height)
         self.imageForCustom = item.imageObject.image
         let dishesFromCategory = DishesByCategoryCollectionViewController(id: self.categoryViewModel.dataItems[indexPath.row].id!)
+        dishesFromCategory.navigationItem.title = item.nameOfCategory.text
         navigationController?.pushViewController(dishesFromCategory, animated: true)
     }
 }

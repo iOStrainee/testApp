@@ -52,6 +52,7 @@ class DishesFromCategoryCollectionViewCell: UICollectionViewCell {
         view.contentMode = .scaleAspectFit
         view.clipsToBounds  = true
         view.backgroundColor = UIColor.clear
+        view.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .vertical)
         return view
     }()
     

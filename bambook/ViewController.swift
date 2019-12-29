@@ -87,6 +87,7 @@ extension TabBarControllerMenu:UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         
         // В принципе можно и было решить через IfElse было бы меньше кода , просто проверял бы item.tag = 0 && 1, а в остальных случаях было бы произведение item.tag*10.0 где 10.0 - означает угол закгругление tabBar.layer.cornerRadius
+        // я просто хотел что нибудь такое, другое, придумать , поэтому оставил так.
         var coordinate = CGRect.zero
         
         switch item.tag {

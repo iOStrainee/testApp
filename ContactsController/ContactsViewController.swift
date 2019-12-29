@@ -26,6 +26,8 @@ class ContactsViewController: UIViewController {
         view.font = UIFont.appetite24()
         view.textColor = UIColor.white
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
+        view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
         view.sizeToFit()
        return view
     }()
@@ -40,6 +42,8 @@ class ContactsViewController: UIViewController {
         view.textColor = UIColor(red: 0.36, green: 0.47, blue: 0.6, alpha: 1.0)
         view.font = UIFont.robotoBold13()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
+        view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
        return view
     }()
     
@@ -47,6 +51,7 @@ class ContactsViewController: UIViewController {
         let view = UIView()
         view.frame = CGRect(x: 0.0, y: 0.0, width: 74.0, height: 2.0)
         view.backgroundColor = UIColor.colorRectangle()
+        view.translatesAutoresizingMaskIntoConstraints = false
        return view
     }()
     
@@ -54,6 +59,7 @@ class ContactsViewController: UIViewController {
         let view = UIView()
         view.frame = CGRect(x: 0.0, y: 0.0, width: 74.0, height: 2.0)
         view.backgroundColor = UIColor.colorRectangle()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -141,6 +147,7 @@ class ContactsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black
         self.contactViewModel = ContactsViewModel(delegate: self)
+        self.facebookButton.addTarget(self, action: #selector(testView), for: UIControl.Event.touchUpInside)
     }
     
     override func viewWillLayoutSubviews() {
@@ -218,5 +225,13 @@ extension ContactsViewController: ViewModelDelegate {
     
     func hasError() {
         print("has error contact")
+    }
+}
+
+extension ContactsViewController {
+    @objc func testView() {
+        print("tapped facebook button but now we just testing")
+        let vc = DetailDishViewController()
+        self.present(vc, animated: true, completion: nil)
     }
 }

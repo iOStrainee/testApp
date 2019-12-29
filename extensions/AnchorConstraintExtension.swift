@@ -24,6 +24,14 @@ extension UIView {
         widthAnchor.constraint(equalTo: toView.widthAnchor).isActive = true
     }
     
+    //MARK: - equal size and rounded button
+    func anchorEqualSizeRounded(toView:UIView){
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.heightAnchor.constraint(equalTo: toView.heightAnchor).isActive = true
+        self.widthAnchor.constraint(equalTo: toView.widthAnchor).isActive = true
+        self.layer.cornerRadius = toView.bounds.height/2.0
+        toView.layer.cornerRadius = toView.bounds.height/2.0
+    }
     //MARK: - anchor layout with padding with opional params
     func anchor(top:NSLayoutYAxisAnchor?,
                 leading:NSLayoutXAxisAnchor?,trailing:NSLayoutXAxisAnchor?

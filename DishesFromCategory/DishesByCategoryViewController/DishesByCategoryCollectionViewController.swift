@@ -12,7 +12,7 @@ private let reuseIdentifier = "dishesCategory"
 private let reuseIdentifierHeader = "header"
 
 class DishesByCategoryCollectionViewController: UICollectionViewController {
-
+    
     var dishesByCategoryViewModel:DishesCategoryViewModel!
     var tabbarHeight:CGFloat = 0.0
     var sizeCustom:CGSize = .zero
@@ -48,6 +48,8 @@ class DishesByCategoryCollectionViewController: UICollectionViewController {
         
         guard let heighttabbar = tabBarController?.tabBar.bounds.height else {return}
         tabbarHeight = heighttabbar + 16.0
+        let backButtonItem = UIBarButtonItem(title: "назад", style: .plain, target: nil, action: nil)
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButtonItem
     }
 
     // MARK: UICollectionViewDataSource
