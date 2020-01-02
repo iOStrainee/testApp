@@ -10,16 +10,12 @@ import UIKit
 
 class DetailDishViewController: UIViewController {
 
-    var searchBar:UISearchBar = {
-        let view = UISearchBar()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.placeholder = "поиск блюд"
-        view.barTintColor = UIColor.mainColor()
-        view.tintColor = UIColor.mainColor()
-        view.textFieldComputed.tintColor = UIColor.red
-        view.textFieldComputed.backgroundColor = UIColor.green
-        return view
-    }()
+    var navbar:UINavigationBar = UINavigationBar() {
+        willSet {
+            print(newValue)
+        }
+    }
+    
     var nameOfDish:UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -104,15 +100,30 @@ class DetailDishViewController: UIViewController {
        return view
     }()
     
+    var stackViewSearchNameDish:UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.spacing = 10.0
+        view.distribution = .fillEqually
+        view.alignment = .center
+        view.backgroundColor = UIColor.clear
+       return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //         Do any additional setup after loading the view.
+        
+        if let nav = self.navigationController?.navigationBar {
+            self.navbar = nav
+        }
+        
         self.view.backgroundColor = UIColor.mainColor()
         self.allSubViews()
     }
     
     private func allSubViews(){
-        self.view.addSubview(self.searchBar)
         self.view.addSubview(self.nameOfDish)
         self.view.addSubview(self.dishImage)
         self.view.addSubview(self.detailDescriptionDish)
@@ -123,48 +134,53 @@ class DetailDishViewController: UIViewController {
         self.view.addSubview(self.plusDish)
     }
 
-    override func viewWillLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
         self.constraintAllView()
-        super.viewWillLayoutSubviews()
+        super.viewDidLayoutSubviews()
     }
     
     private func constraintAllView() {
-        //MARK: - search bar
-        self.searchBar.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20.0).isActive = true
-        self.searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10.0).isActive = true
-        self.searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10.0).isActive = true
-        //MARK: - name of dish
-        self.nameOfDish.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor, constant: 10.0).isActive = true
-        self.nameOfDish.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0.0).isActive = true
-        //MARK: - dish image
-        self.dishImage.topAnchor.constraint(equalTo: self.nameOfDish.bottomAnchor, constant: 10.0).isActive = true
-        self.dishImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        
+        // nameOfDish
+        self.nameOfDish.topAnchor.constraint(equalTo: self.navbar.bottomAnchor, constant: 10.0).isActive = true
+        self.nameOfDish.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10.0).isActive = true
+        self.nameOfDish.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10.0).isActive = true
+        
+        // dishImage
+        self.dishImage.topAnchor.constraint(equalTo: self.nameOfDish.bottomAnchor, constant: 5.0).isActive = true
         self.dishImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50.0).isActive = true
         self.dishImage.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -50.0).isActive = true
-        self.dishImage.bottomAnchor.constraint(equalTo: self.detailDescriptionDish.topAnchor, constant: -10.0).isActive = true
-        //MARK: - detail description
-        self.detailDescriptionDish.topAnchor.constraint(equalTo: self.dishImage.bottomAnchor, constant: 50.0).isActive = true
+        self.dishImage.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/3).isActive = true
+        
+        // detailDescription
+        self.detailDescriptionDish.topAnchor.constraint(equalTo: self.dishImage.bottomAnchor, constant: 10.0).isActive = true
         self.detailDescriptionDish.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10.0).isActive = true
         self.detailDescriptionDish.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10.0).isActive = true
-        self.detailDescriptionDish.bottomAnchor.constraint(equalTo: self.weightDish.topAnchor, constant: -5.0).isActive = true
-        //MARK: - weight dish
-        self.weightDish.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+      
+        // weightDish
         self.weightDish.topAnchor.constraint(equalTo: self.detailDescriptionDish.bottomAnchor, constant: 5.0).isActive = true
-        self.weightDish.bottomAnchor.constraint(equalTo: self.priceDish.topAnchor, constant: -50.0).isActive = true
-        //MARK: - price dish
+        self.weightDish.centerXAnchor.constraint(equalTo: self.detailDescriptionDish.centerXAnchor).isActive = true
+        
+        // priceDish
+        self.priceDish.topAnchor.constraint(equalTo: self.weightDish.bottomAnchor, constant: 20.0).isActive = true
         self.priceDish.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.priceDish.topAnchor.constraint(equalTo: self.weightDish.bottomAnchor, constant: 50.0).isActive = true
-        self.priceDish.bottomAnchor.constraint(equalTo: self.countLabel.topAnchor, constant: -50.0).isActive = true
-        //MARK: - count
+        
+        // minus , plus and count label
+        self.countLabel.topAnchor.constraint(equalTo: self.priceDish.bottomAnchor, constant: 20.0).isActive = true
         self.countLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.countLabel.topAnchor.constraint(equalTo: self.priceDish.bottomAnchor, constant: 50.0).isActive = true
-        //MARK: - minus and plus
-        self.minusDish.trailingAnchor.constraint(equalTo: self.countLabel.leadingAnchor, constant: -10.0).isActive = true
-        self.minusDish.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/6).isActive = true
-        self.minusDish.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/6).isActive = true
-        self.plusDish.leadingAnchor.constraint(equalTo: self.countLabel.trailingAnchor, constant: 10.0).isActive = true
-        self.minusDish.topAnchor.constraint(equalTo: self.countLabel.topAnchor).isActive = true
-        self.plusDish.topAnchor.constraint(equalTo: self.countLabel.topAnchor).isActive = true
+        
+        self.minusDish.centerYAnchor.constraint(equalTo: self.countLabel.centerYAnchor).isActive = true
+        self.minusDish.trailingAnchor.constraint(equalTo: self.countLabel.leadingAnchor).isActive = true
+        self.minusDish.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/10).isActive = true
+        self.minusDish.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/10).isActive = true
+        
+        self.plusDish.centerYAnchor.constraint(equalTo: self.countLabel.centerYAnchor).isActive = true
+        self.plusDish.leadingAnchor.constraint(equalTo: self.countLabel.trailingAnchor).isActive = true
+        self.plusDish.heightAnchor.constraint(equalTo: self.minusDish.heightAnchor).isActive = true
+        self.plusDish.widthAnchor.constraint(equalTo: self.minusDish.widthAnchor).isActive = true
+        
+        self.minusDish.layer.cornerRadius = self.minusDish.frame.height/2.0
+        self.plusDish.layer.cornerRadius = self.plusDish.frame.height/2.0
     }
     /*
     // MARK: - Navigation

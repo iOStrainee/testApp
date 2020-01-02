@@ -86,6 +86,9 @@ class DishesByCategoryCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.cellForItem(at: indexPath) as? DishesFromCategoryCollectionViewCell else {return}
         print(cell.nameOfDishes.text)
         print(cell.itemData?.typeCell)
+        
+        let vc = DetailDishViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     // MARK: UICollectionViewDelegate

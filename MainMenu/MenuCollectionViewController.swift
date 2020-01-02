@@ -36,7 +36,7 @@ class MenuCollectionViewController: UICollectionViewController {
         self.collectionView!.register(CategoryDishesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifierCategoryDish)
         self.collectionView?.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifierHeader)
         self.collectionView.backgroundColor = UIColor.black
-        self.navigationController?.delegate = self
+//        self.navigationController?.delegate = self
         self.navigationItem.title = "Меню"
         self.navigationController?.navigationBar.backItem?.title = "назад"
         
@@ -152,7 +152,7 @@ extension MenuCollectionViewController: ViewModelDelegate {
 //MARK: - custom transition delegate protocol
 extension MenuCollectionViewController:UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
+
         guard let customImage = imageForCustom else {
             print("custom image fail retrieve")
             return nil
@@ -161,9 +161,9 @@ extension MenuCollectionViewController:UINavigationControllerDelegate {
             print("custom frame fail retrieve")
             return nil
         }
-        
+
         self.customPush = CategoryToTransitionNavigationController(image: customImage, coordinate: customFrame.origin, duration: 1.0, size: customFrame.size)
-        
+
         switch operation {
         case .push:
             print("push")

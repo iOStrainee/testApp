@@ -28,6 +28,7 @@ class ContactsViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
         view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
+        view.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .horizontal)
         view.sizeToFit()
        return view
     }()
@@ -44,6 +45,7 @@ class ContactsViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
         view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
+        view.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .horizontal)
        return view
     }()
     
@@ -138,42 +140,46 @@ class ContactsViewController: UIViewController {
         return view
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("will appear contacts")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black
+        self.allViews()
         self.contactViewModel = ContactsViewModel(delegate: self)
-        self.facebookButton.addTarget(self, action: #selector(testView), for: UIControl.Event.touchUpInside)
     }
     
     override func viewWillLayoutSubviews() {
         self.forAllProperties()
-        super.viewWillLayoutSubviews()
+    }
+    
+    //MARK: - add views as subviews
+    private func allViews() {
+        view.addSubview(self.leftRectangle)
+        view.addSubview(self.rightRectangle)
+        view.addSubview(self.titleLabel)
+        view.addSubview(self.numberAndContact)
+        view.addSubview(self.facebookButton)
+        view.addSubview(self.instagramButton)
+        view.addSubview(self.imageMap)
+        view.addSubview(self.stackVertical)
     }
     
     //MARK: - autolayout properties
     func forAllProperties() {
-        
         //MARK: - left rectangle
-        view.addSubview(self.leftRectangle)
         leftRectangle.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, padding: .init(top: 27.0, left: 16.0, bottom: 0.0, right: 0.0), size: .init(width: 74.0, height: 2.0))
         
         //MARK: - right rectangle
-        view.addSubview(self.rightRectangle)
         rightRectangle.anchor(top: view.topAnchor, leading: nil, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 27.0, left: 0.0, bottom: 0.0, right: -16.0), size: .zero)
         rightRectangle.anchorEqualSize(toView: leftRectangle)
         
         //MARK: - title contact
-        view.addSubview(self.titleLabel)
-        self.titleLabel.anchor(top: view.topAnchor, leading: leftRectangle.trailingAnchor, trailing: rightRectangle.leadingAnchor, bottom: nil, padding: .init(top: 16.0, left: 16.0, bottom: 0.0, right: -16.0), size: .zero)
+        self.titleLabel.anchor(top: view.topAnchor, leading: leftRectangle.trailingAnchor, trailing: rightRectangle.leadingAnchor, bottom: nil, padding: .init(top: 16.0, left: 10.0, bottom: 0.0, right: -10.0), size: .zero)
         
         //MARK: - number and contact
-        view.addSubview(self.numberAndContact)
-        self.numberAndContact.anchor(top: titleLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 16.0, left: 45.0, bottom: 0.0, right: -45.0), size: .init(width: 270.0, height: 31.0))
+        self.numberAndContact.anchor(top: titleLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 16.0, left: 45.0, bottom: 0.0, right: -45.0), size: .zero)
+        let numberContact = self.numberAndContact.widthAnchor.constraint(equalToConstant: 270.0)
+        numberContact.priority = UILayoutPriority(999)
+        numberContact.isActive = true
         
         guard let tabBarTopAnchor = tabBarController?.tabBar.topAnchor else {
             print("height")
@@ -181,20 +187,19 @@ class ContactsViewController: UIViewController {
         }
         
         //MARK: - facebook button
-        view.addSubview(self.facebookButton)
         self.facebookButton.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: tabBarTopAnchor, padding: .init(top: 0.0, left: 16.0, bottom: -16.0, right: -188.0), size: .init(width: 0.0, height: 40.0))
         
         //MARK: - instagram button
-        view.addSubview(self.instagramButton)
         self.instagramButton.anchor(top: nil, leading: nil, trailing: view.trailingAnchor, bottom: tabBarTopAnchor, padding: .init(top: 0.0, left: 0.0, bottom: -16.0, right: -16.0), size: .zero)
         self.instagramButton.anchorEqualSize(toView: self.facebookButton)
         
         //MARK: - imageMap
-        view.addSubview(self.imageMap)
-        self.imageMap.anchor(top: numberAndContact.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: facebookButton.topAnchor, padding: .init(top: 17.0, left: 16.0, bottom: -72.0, right: -16.0), size: .zero)
+        self.imageMap.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: facebookButton.topAnchor, padding: .init(top: 0.0, left: 16.0, bottom: -72.0, right: -16.0), size: .zero)
+        let topImage = self.imageMap.topAnchor.constraint(equalTo: self.numberAndContact.bottomAnchor, constant: 17.0)
+        topImage.priority = UILayoutPriority(999)
+        topImage.isActive = true
         
         //MARK: - stackVerticalView
-        view.addSubview(self.stackVertical)
         self.stackVertical.addArrangedSubview(self.labelStack1)
         self.stackVertical.addArrangedSubview(self.labelStack2)
         self.stackVertical.anchor(top: imageMap.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: facebookButton.topAnchor, padding: .init(top: 16.0, left: 43.0, bottom: -16.0, right: -43.0), size: .zero)
@@ -225,13 +230,5 @@ extension ContactsViewController: ViewModelDelegate {
     
     func hasError() {
         print("has error contact")
-    }
-}
-
-extension ContactsViewController {
-    @objc func testView() {
-        print("tapped facebook button but now we just testing")
-        let vc = DetailDishViewController()
-        self.present(vc, animated: true, completion: nil)
     }
 }

@@ -161,6 +161,7 @@ class ProfileViewController: UIViewController {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.mainColor()
+        view.isScrollEnabled = true
         return view
     }()
     
