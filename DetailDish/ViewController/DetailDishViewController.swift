@@ -9,12 +9,7 @@
 import UIKit
 
 class DetailDishViewController: UIViewController {
-
-    var navbar:UINavigationBar = UINavigationBar() {
-        willSet {
-            print(newValue)
-        }
-    }
+    var navbar:UINavigationBar = UINavigationBar()
     
     var nameOfDish:UILabel = {
         let view = UILabel()
@@ -97,17 +92,6 @@ class DetailDishViewController: UIViewController {
         view.layer.masksToBounds = true
         view.layer.shadowOpacity = 1.0
         view.layer.shadowRadius = 4.0
-       return view
-    }()
-    
-    var stackViewSearchNameDish:UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.spacing = 10.0
-        view.distribution = .fillEqually
-        view.alignment = .center
-        view.backgroundColor = UIColor.clear
        return view
     }()
     
