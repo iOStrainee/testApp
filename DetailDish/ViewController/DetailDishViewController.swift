@@ -10,6 +10,7 @@ import UIKit
 
 class DetailDishViewController: UIViewController {
     var navbar:UINavigationBar = UINavigationBar()
+    var tabbarheight:UITabBar = UITabBar()
     
     var nameOfDish:UILabel = {
         let view = UILabel()
@@ -95,6 +96,16 @@ class DetailDishViewController: UIViewController {
        return view
     }()
     
+    var cartButton:UIButton = {
+        let view = UIButton()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.green
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = view.frame.height/2.0
+        view.setTitle("добавить", for: .normal)
+       return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 //         Do any additional setup after loading the view.
@@ -102,7 +113,9 @@ class DetailDishViewController: UIViewController {
         if let nav = self.navigationController?.navigationBar {
             self.navbar = nav
         }
-        
+        if let tabBar = self.tabBarController?.tabBar{
+            self.tabbarheight = tabBar
+        }
         self.view.backgroundColor = UIColor.mainColor()
         self.allSubViews()
     }
@@ -116,11 +129,14 @@ class DetailDishViewController: UIViewController {
         self.view.addSubview(self.countLabel)
         self.view.addSubview(self.minusDish)
         self.view.addSubview(self.plusDish)
+        self.view.addSubview(self.cartButton)
     }
 
-    override func viewDidLayoutSubviews() {
-        self.constraintAllView()
-        super.viewDidLayoutSubviews()
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        DispatchQueue.main.async {
+            self.constraintAllView()
+        }
     }
     
     private func constraintAllView() {
@@ -165,6 +181,12 @@ class DetailDishViewController: UIViewController {
         
         self.minusDish.layer.cornerRadius = self.minusDish.frame.height/2.0
         self.plusDish.layer.cornerRadius = self.plusDish.frame.height/2.0
+        
+        self.cartButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.cartButton.bottomAnchor.constraint(equalTo: self.tabbarheight.topAnchor, constant: -5.0).isActive = true
+        self.cartButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/8).isActive = true
+        self.cartButton.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/8).isActive = true
+        self.cartButton.layer.cornerRadius = self.cartButton.frame.height/2.0
     }
     /*
     // MARK: - Navigation
