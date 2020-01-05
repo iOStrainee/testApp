@@ -187,6 +187,8 @@ class DetailDishViewController: UIViewController {
         self.cartButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/8).isActive = true
         self.cartButton.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/8).isActive = true
         self.cartButton.layer.cornerRadius = self.cartButton.frame.height/2.0
+        
+        self.countLabel.bottomAnchor.constraint(equalTo: self.cartButton.topAnchor, constant: -5.0).isActive = true
     }
     /*
     // MARK: - Navigation
