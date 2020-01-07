@@ -9,6 +9,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    var navBar:UINavigationBar = UINavigationBar()
     
     //MARK: - name of view controller
     var titleViewController:UILabel = {
@@ -172,23 +173,35 @@ class ProfileViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    var navSubView:UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBar.barTintColor = UIColor.mainColor()
-        self.navigationController?.navigationBar.topItem?.title = "Профиль"
+//        self.navigationController?.navigationBar.topItem?.title = "Профиль"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         
-        self.navigationController?.navigationBar.addSubview(leftView)
-        self.navigationController?.navigationBar.addSubview(rightView)
-
+        if let temp = self.navigationController?.navigationBar {
+            self.navBar = temp
+            self.navSubView.bounds.size = temp.bounds.size
+        }
+        
         self.allSubViews()
         
     }
     
     //MARK: - add textField types to stackOfTextField
     private func allSubViews() {
+        self.navBar.addSubview(self.navSubView)
+        self.navSubView.addSubview(self.titleViewController)
+        self.navSubView.addSubview(self.leftView)
+        self.navSubView.addSubview(self.rightView)
         
         self.view.addSubview(self.scrollView)
         self.scrollView.addSubview(self.scrollContentView)
@@ -206,15 +219,33 @@ class ProfileViewController: UIViewController {
     
     //MARK: - here we override layout method for scrollview, scrollcontentView and stackTextField
     override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         
-        self.leftView.topAnchor.constraint(equalTo: self.navigationController!.navigationBar.topAnchor, constant: 10.0).isActive = true
-        self.leftView.leadingAnchor.constraint(equalTo: self.navigationController!.navigationBar.leadingAnchor, constant: 5.0).isActive = true
+        // constraint for subview of navbar
+        self.navSubView.leadingAnchor.constraint(equalTo: self.navBar.leadingAnchor).isActive = true
+        self.navSubView.topAnchor.constraint(equalTo: self.navBar.topAnchor).isActive = true
+        self.navSubView.trailingAnchor.constraint(equalTo: self.navBar.trailingAnchor).isActive = true
+        self.navSubView.bottomAnchor.constraint(equalTo: self.navBar.bottomAnchor).isActive = true
+        self.navSubView.widthAnchor.constraint(equalTo: self.navBar.widthAnchor).isActive = true
+        self.navSubView.heightAnchor.constraint(equalTo: self.navBar.heightAnchor).isActive = true
+        
+        //constraint for titleViewController
+        self.titleViewController.centerYAnchor.constraint(equalTo: self.navSubView.centerYAnchor).isActive = true
+        self.titleViewController.centerXAnchor.constraint(equalTo: self.navSubView.centerXAnchor).isActive = true
+        self.titleViewController.widthAnchor.constraint(equalTo: self.navSubView.widthAnchor, multiplier: 1/3).isActive = true
+        self.titleViewController.heightAnchor.constraint(equalTo: self.navSubView.heightAnchor, multiplier: 1/2).isActive = true
+        
+        // constraint for subview of testView
+        self.leftView.leadingAnchor.constraint(equalTo: self.navSubView.leadingAnchor, constant: 5.0).isActive = true
+        self.leftView.trailingAnchor.constraint(equalTo: self.titleViewController.leadingAnchor, constant: -5.0).isActive = true
+        self.leftView.centerYAnchor.constraint(equalTo: self.titleViewController.centerYAnchor).isActive = true
         self.leftView.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
-        self.leftView.widthAnchor.constraint(equalToConstant: 74.0).isActive = true
         
-        self.rightView.topAnchor.constraint(equalTo: self.navigationController!.navigationBar.topAnchor, constant: 10.0).isActive = true
-        self.rightView.trailingAnchor.constraint(equalTo: self.navigationController!.navigationBar.trailingAnchor, constant: -5.0).isActive = true
-        self.rightView.anchorEqualSize(toView: self.leftView)
+        // constraint for subview of testView
+        self.rightView.leadingAnchor.constraint(equalTo: self.titleViewController.trailingAnchor, constant: 5.0).isActive = true
+        self.rightView.trailingAnchor.constraint(equalTo: self.navSubView.trailingAnchor, constant: -5.0).isActive = true
+        self.rightView.centerYAnchor.constraint(equalTo: self.titleViewController.centerYAnchor).isActive = true
+        self.rightView.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
         
         // MARK: - scrollview constraints
         self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10.0).isActive = true
