@@ -14,8 +14,6 @@ class DetailDishViewModel: NSObject,ResourceData {
     init(delegate:ViewModelDelegate) {
         super.init()
         self.delegate = delegate
-        
-        
     }
     
     func loadData(completionHandled:@escaping completion)->Void {

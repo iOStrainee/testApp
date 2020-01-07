@@ -103,7 +103,7 @@ class ContactsViewController: UIViewController {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.gray
+        view.backgroundColor = UIColor.clear
         view.clipsToBounds = true
        return view
     }()
@@ -153,33 +153,41 @@ class ContactsViewController: UIViewController {
     
     //MARK: - add views as subviews
     private func allViews() {
+        view.addSubview(self.titleLabel)
         view.addSubview(self.leftRectangle)
         view.addSubview(self.rightRectangle)
-        view.addSubview(self.titleLabel)
         view.addSubview(self.numberAndContact)
+        view.addSubview(self.imageMap)
         view.addSubview(self.facebookButton)
         view.addSubview(self.instagramButton)
-        view.addSubview(self.imageMap)
         view.addSubview(self.stackVertical)
     }
     
     //MARK: - autolayout properties
     func forAllProperties() {
+        //MARK: - title contact
+        self.titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 5.0).isActive = true
+        self.titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.titleLabel.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/9.0).isActive = true
+        self.titleLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3.0).isActive = true
+        
         //MARK: - left rectangle
-        leftRectangle.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, padding: .init(top: 27.0, left: 16.0, bottom: 0.0, right: 0.0), size: .init(width: 74.0, height: 2.0))
+        self.leftRectangle.trailingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor, constant: -2.0).isActive = true
+        self.leftRectangle.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        self.leftRectangle.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor).isActive = true
+        self.leftRectangle.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
         
         //MARK: - right rectangle
-        rightRectangle.anchor(top: view.topAnchor, leading: nil, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 27.0, left: 0.0, bottom: 0.0, right: -16.0), size: .zero)
-        rightRectangle.anchorEqualSize(toView: leftRectangle)
-        
-        //MARK: - title contact
-        self.titleLabel.anchor(top: view.topAnchor, leading: leftRectangle.trailingAnchor, trailing: rightRectangle.leadingAnchor, bottom: nil, padding: .init(top: 16.0, left: 10.0, bottom: 0.0, right: -10.0), size: .zero)
+        self.rightRectangle.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.rightRectangle.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: -2.0).isActive = true
+        self.rightRectangle.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor).isActive = true
+        self.rightRectangle.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
         
         //MARK: - number and contact
-        self.numberAndContact.anchor(top: titleLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 16.0, left: 45.0, bottom: 0.0, right: -45.0), size: .zero)
-        let numberContact = self.numberAndContact.widthAnchor.constraint(equalToConstant: 270.0)
-        numberContact.priority = UILayoutPriority(999)
-        numberContact.isActive = true
+        self.numberAndContact.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 5.0).isActive = true
+        self.numberAndContact.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.numberAndContact.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
+        self.numberAndContact.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/9.0).isActive = true
         
         guard let tabBarTopAnchor = tabBarController?.tabBar.topAnchor else {
             print("height")
