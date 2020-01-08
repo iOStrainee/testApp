@@ -13,6 +13,40 @@ private let reuseIdentifierHeader = "main header"
 
 class MenuCollectionViewController: UICollectionViewController {
 
+    //properties for navigationBar design
+    var labelNavBar:UILabel = {
+        let view = UILabel()
+        view.text = "Меню"
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.textColor = UIColor.white
+        view.adjustsFontSizeToFitWidth = true
+        view.font = UIFont.appetite24()
+        view.minimumScaleFactor = 0.5
+        view.contentScaleFactor = 0.3
+        view.textAlignment = .center
+       return view
+    }()
+    var navBar:UINavigationBar = UINavigationBar()
+    
+    var navBarView:UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.clear
+       return view
+    }()
+    var leftView:UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.colorRectangle()
+        return view
+    }()
+    var rightView:UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.colorRectangle()
+        return view
+    }()
+    
     var tabBarHeightPadding = CGFloat(0.0)
     var categoryViewModel:MainCategoryMenuViewModel!
     
@@ -32,12 +66,21 @@ class MenuCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let temp = self.navigationController?.navigationBar {
+            self.navBar = temp
+            self.navBarView.bounds.size = temp.bounds.size
+        }
+        self.addNavbarCustomView()
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor.mainColor()
+        
         // MARK: - register Cell and Header
         self.collectionView!.register(CategoryDishesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifierCategoryDish)
         self.collectionView?.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifierHeader)
         self.collectionView.backgroundColor = UIColor.black
 //        self.navigationController?.delegate = self
-        self.navigationItem.title = "Меню"
+//        self.navigationItem.title = "Меню"
+//        self.navigationController?.navigationBar.topItem?.title = "Mey.."
         self.navigationController?.navigationBar.backItem?.title = "назад"
         
         //MARK:- get height tabbar + padding 16.0 point
@@ -94,6 +137,8 @@ class MenuCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.navBarView.isHidden = true
+        
         guard let item = collectionView.cellForItem(at: indexPath) as? CategoryDishesCollectionViewCell else {return}
         guard let itemAttributes = collectionView.layoutAttributesForItem(at: indexPath) else {return}
         print("frame image in cell = \(item.imageObject.frame)")
@@ -173,4 +218,41 @@ extension MenuCollectionViewController:UINavigationControllerDelegate {
             return nil
         }
     }
+}
+
+//MARK: - layout subView constraints
+extension MenuCollectionViewController {
+    
+    private func addNavbarCustomView() {
+        self.navBar.addSubview(self.navBarView)
+        self.navBarView.addSubview(self.labelNavBar)
+        self.navBarView.addSubview(self.leftView)
+        self.navBarView.addSubview(self.rightView)
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        //constraint for navbar subview
+        self.navBarView.leadingAnchor.constraint(equalTo: self.navBar.leadingAnchor).isActive = true
+        self.navBarView.trailingAnchor.constraint(equalTo: self.navBar.trailingAnchor).isActive = true
+        self.navBarView.topAnchor.constraint(equalTo: self.navBar.topAnchor).isActive = true
+        self.navBarView.bottomAnchor.constraint(equalTo: self.navBar.bottomAnchor).isActive = true
+        self.navBarView.widthAnchor.constraint(equalTo: self.navBar.widthAnchor).isActive = true
+        self.navBarView.heightAnchor.constraint(equalTo: self.navBar.heightAnchor).isActive = true
+        
+        self.labelNavBar.centerXAnchor.constraint(equalTo: self.navBarView.centerXAnchor).isActive = true
+        self.labelNavBar.centerYAnchor.constraint(equalTo: self.navBarView.centerYAnchor).isActive = true
+        self.labelNavBar.widthAnchor.constraint(equalTo: self.navBarView.widthAnchor, multiplier: 1/3).isActive = true
+        self.labelNavBar.heightAnchor.constraint(equalTo: self.navBarView.heightAnchor, multiplier: 1/2).isActive = true
+        
+        self.leftView.leadingAnchor.constraint(equalTo: self.navBarView.leadingAnchor, constant: 2.0).isActive = true
+        self.leftView.trailingAnchor.constraint(equalTo: self.labelNavBar.leadingAnchor, constant: -5.0).isActive = true
+        self.leftView.centerYAnchor.constraint(equalTo: self.labelNavBar.centerYAnchor).isActive = true
+        self.leftView.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
+        
+        self.rightView.leadingAnchor.constraint(equalTo: self.labelNavBar.trailingAnchor, constant: 2.0).isActive = true
+        self.rightView.trailingAnchor.constraint(equalTo: self.navBarView.trailingAnchor, constant: -5.0).isActive = true
+        self.rightView.centerYAnchor.constraint(equalTo: self.labelNavBar.centerYAnchor).isActive = true
+        self.rightView.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
+    }
+    
 }
