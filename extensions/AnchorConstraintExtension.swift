@@ -6,6 +6,7 @@
 //  Copyright © 2019 Admin. All rights reserved.
 //
 
+// this is very strange because this work fine and at the same time it happense is wrong result
 import Foundation
 import UIKit
 
