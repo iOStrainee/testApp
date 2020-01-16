@@ -33,6 +33,7 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         super.init(frame: frame)
         self.insideCollectionConfigure()
         self.sliderViewModel = SliderViewModel(delegate: self)
+        self.settingSearchBar()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +41,15 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     }
     
     override func layoutSubviews() {
+        
         self.autolayoutProperties()
+        
+        self.addSubview(self.searchBar)
+        self.bringSubviewToFront(self.searchBar)
+        self.searchBar.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        self.searchBar.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        self.searchBar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.searchBar.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/6).isActive = true
     }
     
     //MARK: - collectionView configure
@@ -59,6 +68,18 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         self.inSideCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.inSideCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         self.inSideCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+    }
+    
+    //MARK: - setting UISeachBar
+    private func settingSearchBar() {
+        self.searchBar.placeholder = "поиск блюда"
+        self.searchBar.barTintColor = UIColor.mainColor()
+        self.searchBar.barStyle = .black
+        self.searchBar.showsCancelButton = true
+        self.searchBar.setShowsCancelButton(true, animated: true)
+        if let searchText = self.searchBar.value(forKey: "cancelButton") as? UIButton {
+            print("horaaay  = \(searchText.titleLabel?.text)")
+        }
     }
 }
 
