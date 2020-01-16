@@ -41,6 +41,8 @@ class DishesByCategoryCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         self.collectionView.backgroundColor = UIColor.black
         
+        print("navigation")
+        
         //MARK: - register cell and header
         
         self.collectionView!.register(DishesFromCategoryCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -52,8 +54,12 @@ class DishesByCategoryCollectionViewController: UICollectionViewController {
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButtonItem
     }
 
+    //MARK: - settings collectionView
+    private func settingCollectionView() {
+        
+    }
+    
     // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
