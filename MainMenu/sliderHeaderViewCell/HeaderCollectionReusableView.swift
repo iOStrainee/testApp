@@ -46,10 +46,12 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         
         self.addSubview(self.searchBar)
         self.bringSubviewToFront(self.searchBar)
-        self.searchBar.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.searchBar.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        self.searchBar.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        self.searchBar.widthAnchor.constraint(equalToConstant: self.bounds.width-(self.bounds.width*1/15)).isActive = true
         self.searchBar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.searchBar.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/6).isActive = true
+        self.searchBar.layer.cornerRadius = self.searchBar.bounds.height*1/4
+        self.searchBar.layer.masksToBounds = true
     }
     
     //MARK: - collectionView configure
@@ -75,11 +77,12 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         self.searchBar.placeholder = "поиск блюда"
         self.searchBar.barTintColor = UIColor.mainColor()
         self.searchBar.barStyle = .black
-        self.searchBar.showsCancelButton = true
-        self.searchBar.setShowsCancelButton(true, animated: true)
-        if let searchText = self.searchBar.value(forKey: "cancelButton") as? UIButton {
-            print("horaaay  = \(searchText.titleLabel?.text)")
+
+        if let searchText = self.searchBar.value(forKey: "searchField") as? UITextField {
+            searchText.backgroundColor = UIColor.white
         }
+        self.searchBar.setValue("отмена", forKey: "cancelButtonText")
+        self.searchBar.delegate = self
     }
 }
 
@@ -107,6 +110,13 @@ extension HeaderCollectionReusableView:UICollectionViewDataSource {
         cell.slider = sliderViewModel.sliderItems[indexPath.row]
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if self.searchBar.isFirstResponder {
+            self.searchBar.resignFirstResponder()
+            self.searchBar.setShowsCancelButton(false, animated: true)
+        }
+    }
 }
 
 //MARK: - conform delegate 
@@ -122,5 +132,22 @@ extension HeaderCollectionReusableView:ViewModelDelegate {
     
     func hasError() {
         print("has error on header HeaderCollectionReusableView")
+    }
+}
+
+//MARK: - conforms to uisearchbar delegate protocol
+extension HeaderCollectionReusableView:UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        if let cancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+//            cancelButton.setTitle("отмена", for: .normal)
+//        }
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("search button clicked")
     }
 }
