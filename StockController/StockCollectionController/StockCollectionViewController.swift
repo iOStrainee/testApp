@@ -12,6 +12,27 @@ private let reuseIdentifier = "StockCell"
 
 class StockCollectionViewController: UICollectionViewController {
 
+    //MARK: - properties navigationItem properties
+    var leftNavCustomView:UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.colorRectangle()
+        return view
+    }()
+    var leftNavItem:UIBarButtonItem = {
+        let view = UIBarButtonItem()
+        view.customView?.alpha = 1.0
+        return view
+    }()
+    var rightNavCustomView:UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.colorRectangle()
+        return view
+    }()
+    var rightNavItem:UIBarButtonItem = {
+        let view = UIBarButtonItem()
+        return view
+    }()
+    
     var stockViewModel:StockViewModel?
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
@@ -24,7 +45,8 @@ class StockCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBarSettings()
+        self.settingsNavigationBar()
+        self.createNavigationItems()
         stockViewModel = StockViewModel(delegate: self)
         
         // Uncomment the following line to preserve selection between presentations
@@ -34,11 +56,24 @@ class StockCollectionViewController: UICollectionViewController {
         self.collectionView!.register(StockCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
     
-    //MARK: - navigationSettings
-    private func navigationBarSettings(){
-        self.navigationController?.navigationBar.barTintColor = UIColor.mainColor()
+    //MARK: - settings navigationBar
+    private func settingsNavigationBar() {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.appetite24()]
-        self.navigationItem.title = "Акции"
+        self.navigationController?.navigationBar.barTintColor = UIColor.mainColor()
+        self.navigationItem.title = "Контакты"
+    }
+    
+    //MARK: - create navigation bar buttons
+    private func createNavigationItems() {
+        if let nav = self.navigationController?.navigationBar {
+            self.leftNavItem.customView = self.leftNavCustomView
+            self.leftNavCustomView.bounds.size = CGSize(width: nav.bounds.width*1/4, height: nav.bounds.height*1/17)
+            self.navigationItem.leftBarButtonItem = self.leftNavItem
+            
+            self.rightNavItem.customView = self.rightNavCustomView
+            self.rightNavCustomView.bounds.size = CGSize(width: nav.bounds.width*1/4, height: nav.bounds.height*1/17)
+            self.navigationItem.rightBarButtonItem = self.rightNavItem
+        }
     }
 
     // MARK: UICollectionViewDataSource
