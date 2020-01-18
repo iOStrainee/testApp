@@ -31,13 +31,6 @@ class ContactsViewController: UIViewController {
         return view
     }()
     
-    var scrollView:UIScrollView = {
-        let view = UIScrollView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isScrollEnabled = true
-       return view
-    }()
-    
     var contactViewModel:ContactsViewModel!
     
     var numberAndContact:UILabel = {
