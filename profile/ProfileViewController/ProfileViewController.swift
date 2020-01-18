@@ -9,31 +9,26 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    var navBar:UINavigationBar = UINavigationBar()
     
-    //MARK: - name of view controller
-    var titleViewController:UILabel = {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "Профиль"
-        view.adjustsFontSizeToFitWidth = true
-        view.textColor = UIColor.white
-        view.font = UIFont.appetite24()
+    //MARK: - properties navigationItem properties
+    var leftNavCustomView:UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.colorRectangle()
         return view
     }()
-    
-    //MARK: - left and right view that will be whith straight line yellow color
-    var leftView:UIView = {
-        let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 74.0, height: 2.0))
-        view.backgroundColor = UIColor.colorRectangle()
-        view.translatesAutoresizingMaskIntoConstraints = false
-       return view
+    var leftNavItem:UIBarButtonItem = {
+        let view = UIBarButtonItem()
+        view.customView?.alpha = 1.0
+        return view
     }()
-    var rightView:UIView = {
-        let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 74.0, height: 2.0))
+    var rightNavCustomView:UIView = {
+        let view = UIView()
         view.backgroundColor = UIColor.colorRectangle()
-        view.translatesAutoresizingMaskIntoConstraints = false
-       return view
+        return view
+    }()
+    var rightNavItem:UIBarButtonItem = {
+        let view = UIBarButtonItem()
+        return view
     }()
     
     //MARK: - uitextField properties for stackOflabel
@@ -173,35 +168,17 @@ class ProfileViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    var navSubView:UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.clear
-        return view
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.barTintColor = UIColor.mainColor()
-//        self.navigationController?.navigationBar.topItem?.title = "Профиль"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
-        
-        if let temp = self.navigationController?.navigationBar {
-            self.navBar = temp
-            self.navSubView.bounds.size = temp.bounds.size
-        }
-        
+        self.settingsNavigationBar() // here we configure background color, title text and him fonts
+        self.createNavigationItems() // here we create left and right bar button
         self.allSubViews()
         
     }
     
     //MARK: - add textField types to stackOfTextField
     private func allSubViews() {
-        self.navBar.addSubview(self.navSubView)
-        self.navSubView.addSubview(self.titleViewController)
-        self.navSubView.addSubview(self.leftView)
-        self.navSubView.addSubview(self.rightView)
         
         self.view.addSubview(self.scrollView)
         self.scrollView.addSubview(self.scrollContentView)
@@ -220,33 +197,6 @@ class ProfileViewController: UIViewController {
     //MARK: - here we override layout method for scrollview, scrollcontentView and stackTextField
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        // constraint for subview of navbar
-        self.navSubView.leadingAnchor.constraint(equalTo: self.navBar.leadingAnchor).isActive = true
-        self.navSubView.topAnchor.constraint(equalTo: self.navBar.topAnchor).isActive = true
-        self.navSubView.trailingAnchor.constraint(equalTo: self.navBar.trailingAnchor).isActive = true
-        self.navSubView.bottomAnchor.constraint(equalTo: self.navBar.bottomAnchor).isActive = true
-        self.navSubView.widthAnchor.constraint(equalTo: self.navBar.widthAnchor).isActive = true
-        self.navSubView.heightAnchor.constraint(equalTo: self.navBar.heightAnchor).isActive = true
-        
-        //constraint for titleViewController
-        self.titleViewController.centerYAnchor.constraint(equalTo: self.navSubView.centerYAnchor).isActive = true
-        self.titleViewController.centerXAnchor.constraint(equalTo: self.navSubView.centerXAnchor).isActive = true
-        self.titleViewController.widthAnchor.constraint(equalTo: self.navSubView.widthAnchor, multiplier: 1/3).isActive = true
-        self.titleViewController.heightAnchor.constraint(equalTo: self.navSubView.heightAnchor, multiplier: 1/2).isActive = true
-        
-        // constraint for subview of testView
-        self.leftView.leadingAnchor.constraint(equalTo: self.navSubView.leadingAnchor, constant: 5.0).isActive = true
-        self.leftView.trailingAnchor.constraint(equalTo: self.titleViewController.leadingAnchor, constant: -5.0).isActive = true
-        self.leftView.centerYAnchor.constraint(equalTo: self.titleViewController.centerYAnchor).isActive = true
-        self.leftView.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
-        
-        // constraint for subview of testView
-        self.rightView.leadingAnchor.constraint(equalTo: self.titleViewController.trailingAnchor, constant: 5.0).isActive = true
-        self.rightView.trailingAnchor.constraint(equalTo: self.navSubView.trailingAnchor, constant: -5.0).isActive = true
-        self.rightView.centerYAnchor.constraint(equalTo: self.titleViewController.centerYAnchor).isActive = true
-        self.rightView.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
-        
         // MARK: - scrollview constraints
         self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10.0).isActive = true
         self.scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -266,5 +216,25 @@ class ProfileViewController: UIViewController {
         self.stackOfTextField.leadingAnchor.constraint(equalTo: self.scrollContentView.leadingAnchor, constant: 10.0).isActive = true
         self.stackOfTextField.trailingAnchor.constraint(equalTo: self.scrollContentView.trailingAnchor, constant: -10.0).isActive = true
         self.stackOfTextField.heightAnchor.constraint(equalTo: self.scrollContentView.heightAnchor, multiplier: 0.5).isActive = true
+    }
+    
+    //MARK: - settings navigationBar
+    private func settingsNavigationBar() {
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.appetite24()]
+        self.navigationController?.navigationBar.barTintColor = UIColor.mainColor()
+        self.navigationItem.title = "Профиль"
+    }
+    
+    //MARK: - create navigation bar buttons
+    private func createNavigationItems() {
+        if let nav = self.navigationController?.navigationBar {
+            self.leftNavItem.customView = self.leftNavCustomView
+            self.leftNavCustomView.bounds.size = CGSize(width: nav.bounds.width*1/4, height: nav.bounds.height*1/17)
+            self.navigationItem.leftBarButtonItem = self.leftNavItem
+            
+            self.rightNavItem.customView = self.rightNavCustomView
+            self.rightNavCustomView.bounds.size = CGSize(width: nav.bounds.width*1/4, height: nav.bounds.height*1/17)
+            self.navigationItem.rightBarButtonItem = self.rightNavItem
+        }
     }
 }
