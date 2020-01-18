@@ -24,6 +24,7 @@ class StockCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationBarSettings()
         stockViewModel = StockViewModel(delegate: self)
         
         // Uncomment the following line to preserve selection between presentations
@@ -31,6 +32,13 @@ class StockCollectionViewController: UICollectionViewController {
 
         // Register cell classes
         self.collectionView!.register(StockCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+    }
+    
+    //MARK: - navigationSettings
+    private func navigationBarSettings(){
+        self.navigationController?.navigationBar.barTintColor = UIColor.mainColor()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.appetite24()]
+        self.navigationItem.title = "Акции"
     }
 
     // MARK: UICollectionViewDataSource

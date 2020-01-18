@@ -10,6 +10,27 @@ import UIKit
 
 class ContactsViewController: UIViewController {
     
+    //MARK: - properties navigationItem properties
+    var leftNavCustomView:UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.colorRectangle()
+        return view
+    }()
+    var leftNavItem:UIBarButtonItem = {
+        let view = UIBarButtonItem()
+        view.customView?.alpha = 1.0
+        return view
+    }()
+    var rightNavCustomView:UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.colorRectangle()
+        return view
+    }()
+    var rightNavItem:UIBarButtonItem = {
+        let view = UIBarButtonItem()
+        return view
+    }()
+    
     var scrollView:UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -18,20 +39,6 @@ class ContactsViewController: UIViewController {
     }()
     
     var contactViewModel:ContactsViewModel!
-    
-    var titleLabel:UILabel = {
-        let view = UILabel()
-        view.text = "Контакты"
-        view.adjustsFontSizeToFitWidth = true
-        view.font = UIFont.appetite24()
-        view.textColor = UIColor.white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
-        view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical)
-        view.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .horizontal)
-        view.sizeToFit()
-       return view
-    }()
     
     var numberAndContact:UILabel = {
         let view = UILabel()
@@ -47,22 +54,6 @@ class ContactsViewController: UIViewController {
         view.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
         view.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .horizontal)
        return view
-    }()
-    
-    var leftRectangle:UIView = {
-        let view = UIView()
-        view.frame = CGRect(x: 0.0, y: 0.0, width: 74.0, height: 2.0)
-        view.backgroundColor = UIColor.colorRectangle()
-        view.translatesAutoresizingMaskIntoConstraints = false
-       return view
-    }()
-    
-    var rightRectangle:UIView = {
-        let view = UIView()
-        view.frame = CGRect(x: 0.0, y: 0.0, width: 74.0, height: 2.0)
-        view.backgroundColor = UIColor.colorRectangle()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     var facebookButton:UIButton = {
@@ -139,10 +130,16 @@ class ContactsViewController: UIViewController {
         view.alignment = .center
         return view
     }()
+    var bottomNav:NSLayoutYAxisAnchor!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let temp = self.navigationController?.navigationBar.bottomAnchor {self.bottomNav = temp}
+        
         view.backgroundColor = UIColor.black
+        self.settingsNavigationBar() // here we set at the title, background color and fonts
+        self.createNavigationItems() // here we create at the left and right rectangle
         self.allViews()
         self.contactViewModel = ContactsViewModel(delegate: self)
     }
@@ -153,38 +150,37 @@ class ContactsViewController: UIViewController {
     
     //MARK: - add views as subviews
     private func allViews() {
-        view.addSubview(self.titleLabel)
-        view.addSubview(self.leftRectangle)
-        view.addSubview(self.rightRectangle)
         view.addSubview(self.numberAndContact)
         view.addSubview(self.imageMap)
         view.addSubview(self.facebookButton)
         view.addSubview(self.instagramButton)
         view.addSubview(self.stackVertical)
     }
+    //MARK: - settings navigationBar
+    private func settingsNavigationBar() {
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.appetite24()]
+        self.navigationController?.navigationBar.barTintColor = UIColor.mainColor()
+        self.navigationItem.title = "Контакты"
+    }
+    
+    //MARK: - create navigation bar buttons
+    private func createNavigationItems() {
+        if let nav = self.navigationController?.navigationBar {
+            self.leftNavItem.customView = self.leftNavCustomView
+            self.leftNavCustomView.bounds.size = CGSize(width: nav.bounds.width*1/4, height: nav.bounds.height*1/17)
+            self.navigationItem.leftBarButtonItem = self.leftNavItem
+            
+            self.rightNavItem.customView = self.rightNavCustomView
+            self.rightNavCustomView.bounds.size = CGSize(width: nav.bounds.width*1/4, height: nav.bounds.height*1/17)
+            self.navigationItem.rightBarButtonItem = self.rightNavItem
+        }
+    }
     
     //MARK: - autolayout properties
     func forAllProperties() {
-        //MARK: - title contact
-        self.titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 5.0).isActive = true
-        self.titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.titleLabel.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/9.0).isActive = true
-        self.titleLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3.0).isActive = true
-        
-        //MARK: - left rectangle
-        self.leftRectangle.trailingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor, constant: -2.0).isActive = true
-        self.leftRectangle.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        self.leftRectangle.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor).isActive = true
-        self.leftRectangle.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
-        
-        //MARK: - right rectangle
-        self.rightRectangle.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        self.rightRectangle.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: -2.0).isActive = true
-        self.rightRectangle.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor).isActive = true
-        self.rightRectangle.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
         
         //MARK: - number and contact
-        self.numberAndContact.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 5.0).isActive = true
+        self.numberAndContact.topAnchor.constraint(equalTo: self.bottomNav, constant: 10.0).isActive = true
         self.numberAndContact.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         self.numberAndContact.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         self.numberAndContact.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/9.0).isActive = true

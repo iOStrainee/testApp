@@ -72,12 +72,13 @@ class TabBarControllerMenu: UITabBarController{
         
         //MARK: - contact controller
         let contactController = ContactsViewController()
-        contactController.tabBarItem.image = UIImage(named: "customer-service")?.withRenderingMode(.alwaysTemplate)
-        contactController.tabBarItem.title = "Контакты"
-        contactController.tabBarItem.tag = 3
+        let navigationContact = UINavigationController(rootViewController: contactController)
+        navigationContact.tabBarItem.image = UIImage(named: "customer-service")?.withRenderingMode(.alwaysTemplate)
+        navigationContact.tabBarItem.title = "Контакты"
+        navigationContact.tabBarItem.tag = 3
         
         //MARK: - add to tabbar
-        viewControllers = [navigationMenu,navigationStock,navigationProfile,contactController]
+        viewControllers = [navigationMenu,navigationStock,navigationProfile,navigationContact]
         
     }
  }

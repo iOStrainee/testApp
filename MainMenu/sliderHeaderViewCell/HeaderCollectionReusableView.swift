@@ -138,9 +138,6 @@ extension HeaderCollectionReusableView:ViewModelDelegate {
 //MARK: - conforms to uisearchbar delegate protocol
 extension HeaderCollectionReusableView:UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        if let cancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
-//            cancelButton.setTitle("отмена", for: .normal)
-//        }
         searchBar.setShowsCancelButton(true, animated: true)
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
