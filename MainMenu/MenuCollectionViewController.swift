@@ -179,6 +179,8 @@ class MenuCollectionViewController: UICollectionViewController {
         self.imageFrameCustom = CGRect(x: selectFrame.minX, y: selectFrame.minY, width: item.imageObject.frame.size.width, height: item.imageObject.frame.height)
         self.imageForCustom = item.imageObject.image
         let dishesFromCategory = DishesByCategoryCollectionViewController(id: self.categoryViewModel.dataItems[indexPath.row].id!)
+        print("navigation controller navbar title = \(self.navigationController?.navigationBar.topItem?.title)")
+        dishesFromCategory.navigationItem.title = item.nameOfCategory.text
         navigationController?.pushViewController(dishesFromCategory, animated: true)
     }
 }

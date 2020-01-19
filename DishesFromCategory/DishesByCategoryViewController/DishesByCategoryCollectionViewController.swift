@@ -39,12 +39,12 @@ class DishesByCategoryCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.settingCollectionView()
+    }
+
+    //MARK: - settings collectionView and navigationBar and tabBar
+    private func settingCollectionView() {
         self.collectionView.backgroundColor = UIColor.black
-        
-        print("navigation")
-        
-        //MARK: - register cell and header
-        
         self.collectionView!.register(DishesFromCategoryCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView.register(DishesCategoryHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifierHeader)
         
@@ -52,11 +52,9 @@ class DishesByCategoryCollectionViewController: UICollectionViewController {
         tabbarHeight = heighttabbar + 16.0
         let backButtonItem = UIBarButtonItem(title: "назад", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButtonItem
-    }
-
-    //MARK: - settings collectionView
-    private func settingCollectionView() {
         
+        // settings navigationBar
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.appetite24(), NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
     // MARK: UICollectionViewDataSource
@@ -90,9 +88,6 @@ class DishesByCategoryCollectionViewController: UICollectionViewController {
     //MARK: - didSelect
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? DishesFromCategoryCollectionViewCell else {return}
-        print(cell.nameOfDishes.text)
-        print(cell.itemData?.typeCell)
-        
         let vc = DetailDishViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
