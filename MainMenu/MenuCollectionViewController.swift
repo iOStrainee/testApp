@@ -241,7 +241,7 @@ extension MenuCollectionViewController:UINavigationControllerDelegate {
         }
 
         self.customPush = CategoryToTransitionNavigationController(image: customImage, coordinate: customFrame.origin, duration: 1.0, size: customFrame.size)
-
+        print("create new transition object description = \(self.customPush.debugDescription)")
         switch operation {
         case .push:
             print("push")

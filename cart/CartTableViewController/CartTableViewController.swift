@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+private var reuseIdentifier = "cart"
 class CartTableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -20,27 +20,27 @@ class CartTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    //MARK: - navigationBar settings backgroundColor , title-font
+    private func settingNavigationBar() {
+        
+    }
+    
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 1
     }
-
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? CartTableViewCell else {
+            print("has trouble cast to cartcell")
+            return UITableViewCell()
+        }
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -87,4 +87,20 @@ class CartTableViewController: UITableViewController {
     }
     */
 
+}
+
+//MARK: - conform to delegate ViewModelDelegate
+extension CartTableViewController: ViewModelDelegate {
+    func willLoadAnimation() {
+        print("start spinner animation")
+    }
+    
+    func didLoadAnimation() {
+        print("stop spinner animation and reload data")
+        self.tableView.reloadData()
+    }
+    
+    func hasError() {
+       print("has error")
+    }
 }

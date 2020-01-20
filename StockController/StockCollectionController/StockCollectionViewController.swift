@@ -60,7 +60,7 @@ class StockCollectionViewController: UICollectionViewController {
     private func settingsNavigationBar() {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.appetite24()]
         self.navigationController?.navigationBar.barTintColor = UIColor.mainColor()
-        self.navigationItem.title = "Контакты"
+        self.navigationItem.title = "Акции"
     }
     
     //MARK: - create navigation bar buttons
@@ -85,15 +85,18 @@ class StockCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         guard let temp = stockViewModel?.countRow else {return 0}
+        print("count of cell for collectionview is equal to = \(temp)")
         return temp
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print("test ")
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? StockCollectionViewCell else {
             print("error cast to StockCollectionViewCell")
             return UICollectionViewCell()
         }
         cell.itemData = self.stockViewModel?.item[indexPath.row]
+        print("has data some stock")
         return cell
     }
 }

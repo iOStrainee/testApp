@@ -74,6 +74,9 @@ class DishesFromCategoryCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         self.addViews()
         self.mainLayer()
+        
+        // add selector to carButton property
+        self.cartButton.addTarget(self, action: #selector(self.addToCart(sender:)), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -123,5 +126,13 @@ class DishesFromCategoryCollectionViewCell: UICollectionViewCell {
         self.cartButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0.0).isActive = true
         self.cartButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1.0).isActive = true
         self.cartButton.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+    }
+    
+    //MARK: - selector for cartButton
+    @objc private func addToCart(sender:UIButton){
+        
+        let object:[String : Any] = ["type":itemData?.typeCell,"name":nameOfDishes.text,"price":priceLabel.text,"image":imageObject.image]
+        
+        NotificationCenter.default.post(name: NSNotification.Name.toBasket, object: object)
     }
 }

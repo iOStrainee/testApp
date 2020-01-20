@@ -6,6 +6,7 @@
 //  Copyright © 2019 Admin. All rights reserved.
 //
 
+// this is cell used when we has data
 import UIKit
 
 class StockCollectionViewCell: UICollectionViewCell {

@@ -19,6 +19,7 @@ class StockViewModel: NSObject,ResourceData {
     
     init(delegate:ViewModelDelegate? = nil) {
         self.delegate = delegate
+        self.delegate?.willLoadAnimation()
         super.init()
         self.preloadData {[weak object = self] (flag) in
             if flag {
@@ -30,7 +31,6 @@ class StockViewModel: NSObject,ResourceData {
     }
     
     func preloadData(completionHandler: @escaping completion)->Void {
-        delegate?.willLoadAnimation()
         Api.singleton.getStocks {[weak object = self] (dataStock, flag) in
             if flag {
                 guard let data = dataStock else {
