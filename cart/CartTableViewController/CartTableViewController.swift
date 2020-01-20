@@ -9,10 +9,34 @@
 import UIKit
 private var reuseIdentifier = "cart"
 class CartTableViewController: UITableViewController {
-
+    
+    //MARK: - properties navigationItem properties
+    var leftNavCustomView:UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.colorRectangle()
+        return view
+    }()
+    var leftNavItem:UIBarButtonItem = {
+        let view = UIBarButtonItem()
+        view.customView?.alpha = 1.0
+        return view
+    }()
+    var rightNavCustomView:UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.colorRectangle()
+        return view
+    }()
+    var rightNavItem:UIBarButtonItem = {
+        let view = UIBarButtonItem()
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.settingNavigationBar()
+        self.createNavigationItems()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -22,7 +46,22 @@ class CartTableViewController: UITableViewController {
 
     //MARK: - navigationBar settings backgroundColor , title-font
     private func settingNavigationBar() {
-        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.backgroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.appetite24()]
+        self.navigationController?.navigationBar.topItem?.title = "Корзина"
+        self.navigationController?.navigationBar.barTintColor = UIColor.mainColor()
+    }
+    
+    //MARK: - create navigation bar buttons
+    private func createNavigationItems() {
+        if let nav = self.navigationController?.navigationBar {
+            self.leftNavItem.customView = self.leftNavCustomView
+            self.leftNavCustomView.bounds.size = CGSize(width: nav.bounds.width*1/4, height: nav.bounds.height*1/17)
+            self.navigationItem.leftBarButtonItem = self.leftNavItem
+            
+            self.rightNavItem.customView = self.rightNavCustomView
+            self.rightNavCustomView.bounds.size = CGSize(width: nav.bounds.width*1/4, height: nav.bounds.height*1/17)
+            self.navigationItem.rightBarButtonItem = self.rightNavItem
+        }
     }
     
     // MARK: - Table view data source

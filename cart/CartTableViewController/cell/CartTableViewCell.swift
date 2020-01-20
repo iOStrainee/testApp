@@ -10,6 +10,35 @@ import UIKit
 
 class CartTableViewCell: UITableViewCell {
 
+    //MARK: - UI properties
+    var name:UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.font = UIFont.appetite24()
+        view.textColor = UIColor.white
+        view.adjustsFontSizeToFitWidth = true
+        view.textAlignment = .center
+       return view
+    }()
+    
+    var price:UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.font = UIFont.appetite24()
+        view.textColor = UIColor.white
+        view.adjustsFontSizeToFitWidth = true
+        view.textAlignment = .center
+        return view
+    }()
+    
+    var imageFood:UIImageView = {
+       let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFit
+        view.clipsToBounds = true
+        return view
+    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -26,4 +55,8 @@ class CartTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
+    //MARK: - layout sub view
+    override func layoutSubviews() {
+        
+    }
 }

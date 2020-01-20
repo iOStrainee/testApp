@@ -27,7 +27,7 @@ class StockCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
-        view.backgroundColor = UIColor.gray
+        view.backgroundColor = UIColor.clear
        return view
     }()
     
