@@ -90,7 +90,18 @@ extension TabBarControllerMenu:UITabBarControllerDelegate {
         // В принципе можно и было решить через IfElse было бы меньше кода , просто проверял бы item.tag = 0 && 1, а в остальных случаях было бы произведение item.tag*10.0 где 10.0 - означает угол закгругление tabBar.layer.cornerRadius
         // я просто хотел что нибудь такое, другое, придумать , поэтому оставил так.
         var coordinate = CGRect.zero
+//        if let temp = item.value(forKey: "view") as? UIView {
+//            print("layer = \(temp.layer) bounds layer = \(temp.layer.frame) frame view = \(temp.frame)")
+//
+//            let layer = CALayer()
+//            layer.backgroundColor = UIColor.yellow.cgColor
+//            layer.frame.size = temp.frame.size
+//            print(layer.frame.origin)
+//            temp.layer.insertSublayer(layer, at: 0)
+//        } else {print("daaaamn")}
         
+//        item.setValue("hello", forKey: "title")
+
         switch item.tag {
         case 0:
             coordinate = CGRect(x: 10.0, y: 0.0, width: self.tabScrollView.frame.width, height: 2.0)

@@ -51,3 +51,14 @@ extension ResourceData {
     //optional functions
     func bootModel(){}
 }
+
+//MARK: - Data protocol for for unwrapped data
+protocol DataMappable {
+    var id:Int {get set}
+    var type:TypeCell{get}
+}
+extension DataMappable {
+    var type:TypeCell {
+        return .normal
+    }
+}

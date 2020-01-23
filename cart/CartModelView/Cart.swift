@@ -8,6 +8,12 @@
 
 import Foundation
 import UIKit
+protocol Carts {
+    var type:TypeCell {get set}
+    var name:String {get set}
+    var price:Int {get set}
+    var image:UIImage?{get set}
+}
 
 struct Cart {
     
@@ -22,4 +28,16 @@ struct Cart {
         self.price = price
         self.image = image
     }
+}
+
+struct DerivativeCart: Carts {
+    var image: UIImage?
+    
+    var type: TypeCell
+    
+    var name: String
+    
+    var price: Int
+    
+    
 }

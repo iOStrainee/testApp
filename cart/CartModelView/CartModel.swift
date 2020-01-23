@@ -37,6 +37,9 @@ extension CartModel {
     
     //MARK: - selector for notification
     @objc private func receiverDataNotification(note:Notification){
+        
+        print("perform selector  = \(#function)")
+        
         var cartData = Cart()
         
         if let data = note.object as? [String:Any] {

@@ -130,9 +130,22 @@ class DishesFromCategoryCollectionViewCell: UICollectionViewCell {
     
     //MARK: - selector for cartButton
     @objc private func addToCart(sender:UIButton){
-        
-        let object:[String : Any] = ["type":itemData?.typeCell,"name":nameOfDishes.text,"price":priceLabel.text,"image":imageObject.image]
-        
+
+        let object:NSDictionary = NSDictionary()
+
+        if let type = self.itemData?.typeCell {
+           object.setValue(type, forKey: "type")
+        }
+        if let name = self.nameOfDishes.text {
+            object.setValue(name, forKey: "name")
+        }
+        if let price = self.priceLabel.text {
+            object.setValue(price, forKey: "price")
+        }
+        if let image = self.imageObject.image {
+            object.setValue(image, forKey: "image")
+        }
+
         NotificationCenter.default.post(name: NSNotification.Name.toBasket, object: object)
     }
 }

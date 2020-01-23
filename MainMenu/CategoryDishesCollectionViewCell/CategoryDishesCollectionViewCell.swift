@@ -10,14 +10,10 @@ import UIKit
 import Kingfisher
 
 class CategoryDishesCollectionViewCell: UICollectionViewCell {
-    var item:CategoryDishes? {
+    var item:CategoryDishModel! {
         didSet{
-            guard let tempImage = item?.image, let tempName = item?.name else {
-                print("CategoryDishesCollectionViewCell")
-                return
-            }
-            imageObject.kf.setImage(with: URL(string: tempImage)!)
-            nameOfCategory.text = tempName
+            nameOfCategory.text = item.name
+            imageObject.kf.setImage(with: URL(string: item.image)!)
         }
     }
     

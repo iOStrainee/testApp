@@ -11,7 +11,17 @@ import UIKit
 class MainCategoryMenuViewModel: NSObject ,ResourceData{
     
     weak var delegate: ViewModelDelegate?
-    var dataItems = [CategoryDishes]()
+    
+    private var dataItemsOptional = [CategoryDishes]() {
+        didSet {
+            self.unwrappedData()
+        }
+    }
+    var dataItems:[CategoryDishModel] = [] {
+        didSet {
+            delegate?.didLoadAnimation()
+        }
+    }
     
     var countRow: Int {
         return dataItems.count
@@ -39,12 +49,33 @@ class MainCategoryMenuViewModel: NSObject ,ResourceData{
                     completionHandler(false)
                     return
                 }
-                object?.dataItems = tempArray
+                object?.dataItemsOptional = tempArray
                 completionHandler(true)
             } else {
                 print("Category has error in query")
                 completionHandler(false)
             }
+        }
+    }
+    
+    //MARK: data with already unwrapped
+    private func unwrappedData() {
+       self.dataItems  =  self.dataItemsOptional.map {
+            var dishCategory = CategoryDishModel()
+            
+            if let id = $0.id {
+                dishCategory.id = id
+            }
+            if let name = $0.name {
+                dishCategory.name = name
+            }
+            if let slug = $0.slug {
+                dishCategory.slug = slug
+            }
+            if let image = $0.image {
+                dishCategory.image = image
+            }
+        return dishCategory
         }
     }
 }
