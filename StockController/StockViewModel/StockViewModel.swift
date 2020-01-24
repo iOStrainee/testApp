@@ -23,7 +23,7 @@ class StockViewModel: NSObject,ResourceData {
     }
     
     var countRow: Int {
-        return item.count
+        return stockModel.count
     }
     
     init(delegate:ViewModelDelegate? = nil) {
