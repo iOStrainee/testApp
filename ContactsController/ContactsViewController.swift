@@ -211,18 +211,10 @@ extension ContactsViewController: ViewModelDelegate {
     
     func didLoadAnimation() {
         print("did load animation contact")
-        guard let dataImage = contactViewModel.contacts?.map_image else {
-            print("error retrieve data contacts")
-            return
-        }
-        self.imageMap.kf.setImage(with: URL(string: dataImage))
         
-        guard let start = contactViewModel.contacts?.work_start, let end = contactViewModel.contacts?.work_end else {
-            print("error retrieve data schedule contact ")
-            return
-        }
+        self.imageMap.kf.setImage(with: URL(string: contactViewModel.contactUnwrapped.map_image))
         
-        self.labelStack2.text = start+" "+end
+        self.labelStack2.text = contactViewModel.contactUnwrapped.work_start+" "+contactViewModel.contactUnwrapped.work_end
     }
     
     func hasError() {
