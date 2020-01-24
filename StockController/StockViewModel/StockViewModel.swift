@@ -11,7 +11,16 @@ import UIKit
 class StockViewModel: NSObject,ResourceData {
     
     weak var delegate: ViewModelDelegate?
-    var item:[Stocks] = [Stocks]()
+    private var item:[Stocks] = [Stocks]() {
+        didSet {
+            self.unwrappedData()
+        }
+    }
+    var stockModel:[StockModel] = [] {
+        didSet {
+            delegate?.didLoadAnimation()
+        }
+    }
     
     var countRow: Int {
         return item.count
@@ -44,6 +53,34 @@ class StockViewModel: NSObject,ResourceData {
                 print("fail query")
                 completionHandler(false)
             }
+        }
+    }
+    private func unwrappedData() {
+        self.stockModel = self.item.map {
+            var data = StockModel()
+            
+            if let id = $0.id {
+                data.id = id
+            }
+            if let title = $0.title {
+                data.title = title
+            }
+            if let subtitle = $0.subTitle {
+                data.subTitle = subtitle
+            }
+            if let image = $0.image {
+                data.image = image
+            }
+            if let descr = $0.description {
+                data.description = descr
+            }
+            if let active = $0.is_active {
+                data.is_active = active
+            }
+            if let end = $0.end_data {
+                data.end_data = end
+            }
+            return data
         }
     }
 }

@@ -53,16 +53,13 @@ class StockCollectionViewCell: UICollectionViewCell {
        return view
     }()
     
-    var itemData:Stocks? {
+    var itemData:StockModel! {
         didSet{
-            guard let dataTitle = itemData?.title else {return}
-            self.stockTitle.text = dataTitle
-            guard let dataImage = itemData?.image else {return}
-            self.stockImage.kf.setImage(with: URL(string: dataImage))
-            guard let dataDiscount = itemData?.subTitle else {return}
-            self.stockDiscountTitle.text = dataDiscount
-            guard let limit = itemData?.end_data else {return}
-            self.stockLimit.text = limit
+            
+            self.stockTitle.text = itemData.title
+            self.stockImage.kf.setImage(with: URL(string: itemData.image))
+            self.stockDiscountTitle.text = itemData.subTitle
+            self.stockLimit.text = itemData.end_data
         }
     }
     

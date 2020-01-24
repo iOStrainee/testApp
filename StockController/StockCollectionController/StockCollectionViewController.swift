@@ -95,7 +95,7 @@ class StockCollectionViewController: UICollectionViewController {
             print("error cast to StockCollectionViewCell")
             return UICollectionViewCell()
         }
-        cell.itemData = self.stockViewModel?.item[indexPath.row]
+        cell.itemData = self.stockViewModel?.stockModel[indexPath.row]
         print("has data some stock")
         return cell
     }
